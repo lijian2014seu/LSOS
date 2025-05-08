@@ -3,7 +3,7 @@ For all the six missions named M13, M15, M33, M90, M180-1, M180-2, read the raw 
 
 Directory structure in DNA methylation analysis part should strictly follow the one below to ensure successful execution:   
 --Program  
-\ \ --13day_spaceflight_M13  
+/ / --13day_spaceflight_M13  
 \ \ \ \ --DNA_methylation  
 \ \ \ \   --rawdata  
           *.idat  
