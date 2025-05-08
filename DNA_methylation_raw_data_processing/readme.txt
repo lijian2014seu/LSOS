@@ -33,6 +33,8 @@ Directory structure in DNA methylation analysis part should strictly follow the 
       --rawdata  
           *.idat  
           Samplesheet.csv  
+  --log
+    *nohup*.txt
   --main  
     --Alternative_splicing  
       --result  
