@@ -16,7 +16,7 @@ library(RColorBrewer)
 library(ggplot2)
 library(ggalluvial)
 
-message("step2_2_DMP_num_statistic_and_trend_plot.R", flag)
+message("step1_2_DMP_num_statistic_and_trend_plot.R", flag)
 
 if (flag %in% c("_3_3", "_6", "_1_1_1_1_1_1")) {
   missions <- c("M13", "M15", "M33", "M90", "M180-1", "M180-2")

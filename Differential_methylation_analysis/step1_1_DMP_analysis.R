@@ -13,7 +13,7 @@ parser <- OptionParser(option_list = option_list)
 opts <- parse_args(parser)
 flag <- opts$flag
 
-message("step2_1_DMP_analysis.R", flag)
+message("step1_1_DMP_analysis.R", flag)
 
 library(ChAMP)
 library(ggvenn)

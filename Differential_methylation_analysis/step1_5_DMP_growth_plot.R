@@ -23,6 +23,7 @@ direction <- opts$direction
 group1 <- opts$group1
 group2 <- opts$group2
 
+message("step1_5_DMP_growth_plot.R", flag, window_size, direction, group1, group2)
 
 if (flag %in% c("_3_3", "_6", "_1_1_1_1_1_1")) {
   missions <- c("M13", "M15", "M33", "M90", "M180-1", "M180-2")

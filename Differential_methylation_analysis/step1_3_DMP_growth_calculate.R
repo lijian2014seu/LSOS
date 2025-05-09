@@ -21,6 +21,9 @@ direction <- opts$direction
 group1 <- opts$group1
 group2 <- opts$group2
 
+message("step1_3_DMP_growth_calculate.R", flag, window_size, direction, group1, group2)
+
+
 library(circlize)
 library(data.table)
 

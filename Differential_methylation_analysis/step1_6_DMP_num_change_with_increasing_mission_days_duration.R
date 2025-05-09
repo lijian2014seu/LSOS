@@ -14,7 +14,7 @@ flag <- opts$flag
 
 library(ggplot2)
 
-message("step2_4_DMP_num_change_with_increasing_mission_days_duration.R", flag)
+message("step1_6_DMP_num_change_with_increasing_mission_days_duration.R", flag)
 
 DMP_result_path = paste0("./DMP_result", flag)
 

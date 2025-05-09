@@ -20,7 +20,7 @@ direction <- opts$direction
 group1 <- opts$group1
 group2 <- opts$group2
 
-message("step2_3_2_DMP_growth_cal_core.R", flag, window_size, direction, group1, group2)
+message("step1_4_DMP_growth_cal_core.R", flag, window_size, direction, group1, group2)
 
 DMP_growth_res_path = "./DMP_growth_result"
 
