@@ -1,4 +1,4 @@
-### Sort samplesheet by row, to make sure sample_well and sample_group in the order of H01, H02, H03 and T1, T2, T3. ###
+### description: Sort samplesheet by row, to make sure sample_well and sample_group in the order of H01, H02, H03 and T1, T2, T3. ###
 
 # Working directory need to be adjusted according to your path.
 setwd("/home/lqwang/Program")

@@ -1,4 +1,4 @@
-### Processing of raw DNA methylation data from Illumina 450K and EPIC platform. ###
+### description: Processing of raw DNA methylation data from Illumina 450K and EPIC platform. ###
 
 # Working directory need to be adjusted according to your path.
 setwd("/home/lqwang/Program")

@@ -1,4 +1,4 @@
-### Batch removal and dimensionality reduction visualization for DNA methylation data. ###
+### description: Batch removal and dimensionality reduction visualization for DNA methylation data. ###
 
 # This script offers options for different batch removal strategy. In the paper, we combine M90 and M180-1 to remove batch across mission and M180-2 as separate validation for the different sampling time of T2, referring to _2_1. For Fig .1a, we filtered common probes for all the six missions and remove batch effect for all to ensure a fair compare of DMPs across different experiments, referring to _6.
 
