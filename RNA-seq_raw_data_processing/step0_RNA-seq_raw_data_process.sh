@@ -2,6 +2,7 @@
 
 # Description: The procedure of RNA-seq rawdata processing and obtaining gene expression data matrixes
 
+setwd("/home/lqwang/Program")
 # 01Start: Quality assessment for raw data
 echo "Starting quality assessment for raw data..."
 cd Data/RNA-seq/rawdata/
