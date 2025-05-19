@@ -5,9 +5,9 @@
 library(ggplot2)
 
 # 01Start: DEG consistency checks
-DEG_01_T1_to_T2 <- read.table(file = "90-day spaceflight_M90/RNA-seq/DE_analysis/T1_to_T2_DEG_table.txt")
-DEG_02_T1_to_T2 <- read.table(file = "180-day spaceflight_M180-1/RNA-seq/DE_analysis/T1_to_T2_DEG_table.txt")
-DEG_03_T1_to_T2 <- read.table(file = "180-day spaceflight_M180-2/RNA-seq/DE_analysis/T1_to_T2_DEG_table.txt")
+DEG_01_T1_to_T2 <- read.table(file = "90-day_spaceflight_M90/RNA-seq/DE_analysis/T1_to_T2_DEG_table.txt")
+DEG_02_T1_to_T2 <- read.table(file = "180-day_spaceflight_M180-1/RNA-seq/DE_analysis/T1_to_T2_DEG_table.txt")
+DEG_03_T1_to_T2 <- read.table(file = "180-day_spaceflight_M180-2/RNA-seq/DE_analysis/T1_to_T2_DEG_table.txt")
 
 head(DEG_02_T1_to_T2)
 sig_DEG_02_T1_to_T2 <- DEG_02_T1_to_T2[DEG_02_T1_to_T2$change!="Stable",]
