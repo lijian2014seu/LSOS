@@ -1,28 +1,29 @@
 # Description: Differential expression analysis
 
+setwd("/home/lqwang/Program")
 # Load packages
 library(edgeR) 
 
 # Start: Differential expression analysis 
 # Load count data of 90-day experiment (M90),nobatch_expression_profile.txt and SampleSheet.csv are available for download at https://www.spacelifescience.cn/search/ (search for 90-day spaceflight_M90, RNA-seq)
-combat_mat_01 <- read.table("90-day spaceflight_M90/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep="\t")
-SampleSheet_01 <- read.csv("90-day spaceflight_M90/RNA-seq/SampleSheet.csv")
+combat_mat_01 <- read.table("90-day_spaceflight_M90/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep="\t")
+SampleSheet_01 <- read.csv("90-day_spaceflight_M90/RNA-seq/SampleSheet.csv")
 get_DEG(exp_mat=combat_mat_01, sample_df=SampleSheet_01, cut_off_pvalue = 0.05,
-        cut_off_logFC = log2(1.5), ourdir = "90-day spaceflight_M90/RNA-seq/DE_analysis/")
+        cut_off_logFC = log2(1.5), ourdir = "90-day_spaceflight_M90/RNA-seq/DE_analysis/")
 
 # Load count data of 180-day experiment (M180-1),nobatch_expression_profile.txt and SampleSheet.csv are available for download at https://www.spacelifescience.cn/search/ (search for 180-day spaceflight_180-1, RNA-seq)
-combat_mat_02 <- read.table("180-day spaceflight_M180-1/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep="\t")
-SampleSheet_02 <- read.csv("180-day spaceflight_M180-1/RNA-seq/SampleSheet.csv")
+combat_mat_02 <- read.table("180-day_spaceflight_M180-1/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep="\t")
+SampleSheet_02 <- read.csv("180-day_spaceflight_M180-1/RNA-seq/SampleSheet.csv")
 get_DEG(exp_mat=combat_mat_02, sample_df=SampleSheet_02,cut_off_pvalue = 0.05,
-        cut_off_logFC = log2(1.5), ourdir = "180-day spaceflight_M180-1/RNA-seq/DE_analysis/")
+        cut_off_logFC = log2(1.5), ourdir = "180-day_spaceflight_M180-1/RNA-seq/DE_analysis/")
 
 # Load count data of 180-day experiment (M180-2),nobatch_expression_profile.txt and SampleSheet.csv are available for download at https://www.spacelifescience.cn/search/ (search for 180-day spaceflight_M180-2, RNA-seq)
-combat_mat_03 <- read.table("180-day spaceflight_M180-2/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep="\t")
-SampleSheet_03 <- read.csv("180-day spaceflight_M180-2/RNA-seq/SampleSheet.csv")
+combat_mat_03 <- read.table("180-day_spaceflight_M180-2/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep="\t")
+SampleSheet_03 <- read.csv("180-day_spaceflight_M180-2/RNA-seq/SampleSheet.csv")
 SampleSheet_03 <- SampleSheet_03[SampleSheet_03$Sample_Group != "Torbit", ]
 combat_mat_03 <- combat_mat_03[,SampleSheet_03$Sample_Name]
 get_DEG(exp_mat=combat_mat_03, sample_df=SampleSheet_03,cut_off_pvalue = 0.05,
-        cut_off_logFC = log2(1.5), ourdir = "180-day spaceflight_M180-2/RNA-seq/DE_analysis/")
+        cut_off_logFC = log2(1.5), ourdir = "180-day_spaceflight_M180-2/RNA-seq/DE_analysis/")
 
 # Function for differential expression analysis 
 get_DEG <- function(exp_mat, sample_df, cut_off_pvalue,
@@ -76,8 +77,6 @@ get_DEG <- function(exp_mat, sample_df, cut_off_pvalue,
                            n = Inf,
   )				
   
-  
-  setwd(ourdir)
   DEG_T1_to_T2$change = ifelse(DEG_T1_to_T2$adj.P.Val < cut_off_pvalue & abs(DEG_T1_to_T2$logFC) >= cut_off_logFC, 
                                ifelse(DEG_T1_to_T2$logFC> cut_off_logFC ,'Up','Down'),
                                'Stable')
@@ -102,13 +101,13 @@ get_DEG <- function(exp_mat, sample_df, cut_off_pvalue,
                    `up_T2_to_T3` = rownames(DEG_T2_to_T3)[DEG_T2_to_T3$change=="Up"],
                    `down_T2_to_T3` = rownames(DEG_T2_to_T3)[DEG_T2_to_T3$change=="Down"],
                    `stable_T2_to_T3` = rownames(DEG_T2_to_T3)[DEG_T2_to_T3$change=="Stable"])
-  saveRDS(DEG_list, file = "./DEG_list.Rds")
+  saveRDS(DEG_list, file = file.path(ourdir, "DEG_list.Rds"))
 }
 # T1_to_T2_DEG_table.txt, T1_to_T2_DEG_table.txt, T1_to_T3_DEG_table.txt and DEG_list.Rds are available in "DE_analysis"
 
 
 # DEG trend in T1_to_T2 and T2_to_T3 (M90)
-DEG_list_01 <- readRDS(file = "90-day spaceflight_M90/RNA-seq/DE_analysis/DEG_list.Rds")
+DEG_list_01 <- readRDS(file = "90-day_spaceflight_M90/RNA-seq/DE_analysis/DEG_list.Rds")
 
 state <- c("up", "stable", "down")
 state_groups <- unique(t(combn(c(1:3,1:3),2)))
@@ -129,7 +128,7 @@ DEG_list_trends <- DEG_list_trends[mapply(length, DEG_list_trends )!=0]
 saveRDS(DEG_list_trends, file = "90-day spaceflight_M90/RNA-seq/DE_analysis/DEG_list_trends.Rds")
 
 # DEG trend in T1_to_T2 and T2_to_T3 (M180-1)
-DEG_list_02 <- readRDS(file = "180-day spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list.Rds")
+DEG_list_02 <- readRDS(file = "180-day_spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list.Rds")
 trends <- t(apply(state_groups, 1, function(x){return(c(state[x]))}))
 trends <- as.data.frame(trends)
 colnames(trends) <- c("T1_to_T2","T2_to_T3")
@@ -144,10 +143,10 @@ names(DEG_list_trends) <- paste0(trends$T1_to_T2, "_", trends$T2_to_T3)
 mapply(length, DEG_list_trends )
 DEG_list_trends <- DEG_list_trends[-grep("stable_stable", names(DEG_list_trends))]
 DEG_list_trends <- DEG_list_trends[mapply(length, DEG_list_trends )!=0]
-saveRDS(DEG_list_trends, file = "180-day spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list_trends.Rds")
+saveRDS(DEG_list_trends, file = "180-day_spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list_trends.Rds")
 
 # DEG trend in T1_to_T2 and T2_to_T3 (M180-2)
-DEG_list_03 <- readRDS(file = "180-day spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list.Rds")
+DEG_list_03 <- readRDS(file = "180-day_spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list.Rds")
 trends <- t(apply(state_groups, 1, function(x){return(c(state[x]))}))
 trends <- as.data.frame(trends)
 colnames(trends) <- c("T1_to_T2","T2_to_T3")
@@ -162,4 +161,4 @@ names(DEG_list_trends) <- paste0(trends$T1_to_T2, "_", trends$T2_to_T3)
 mapply(length, DEG_list_trends )
 DEG_list_trends <- DEG_list_trends[-grep("stable_stable", names(DEG_list_trends))]
 DEG_list_trends <- DEG_list_trends[mapply(length, DEG_list_trends )!=0]
-saveRDS(DEG_list_trends, file = "180-day spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list_trends.Rds")
+saveRDS(DEG_list_trends, file = "180-day_spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list_trends.Rds")
