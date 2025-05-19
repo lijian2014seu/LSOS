@@ -128,9 +128,9 @@ for(exp in dataset_paths){
     consist_judge_fun_comp1_to_comp2 <- consist_judge_fun(comp[1], comp[2], filter_beta, pd)
 
     # Define significant DMPs with a criteria of p value less than 0.05 and avg deltaBeta more than 0.05.
-    up_probes <- intersect(names(consist_judge_fun_comp1_to_comp2)[consist_judge_fun_comp1_to_comp2 == "Smaller"], 
+    up_probes <- intersect(names(consist_judge_fun_comp1_to_comp2)[consist_judge_fun_comp1_to_comp2 == "Greater"], 
                                   rownames(df)[df$P.Value < 0.05])
-    down_probes <- intersect(names(consist_judge_fun_comp1_to_comp2)[consist_judge_fun_comp1_to_comp2 == "Greater"], 
+    down_probes <- intersect(names(consist_judge_fun_comp1_to_comp2)[consist_judge_fun_comp1_to_comp2 == "Smaller"], 
                                   rownames(df)[df$P.Value < 0.05])
     df$change <- "stable"
     if (!is.null(up_probes)) { df[up_probes, "change"] <- "up" }
