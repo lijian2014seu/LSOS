@@ -5,7 +5,7 @@
 library(ggplot2)
 
 # 01Start: logFC density of DEGs in M90
-workdir <- "90-day spaceflight_M90/RNA-seq/DE_analysis/"
+workdir <- "90-day_spaceflight_M90/RNA-seq/DE_analysis/"
 setwd(workdir)
 DEG_T1_T2_01 <- read.table( file = "T1_to_T2_DEG_table.txt", header = T, sep = "\t")
 DEG_T2_T3_01 <- read.table( file = "T2_to_T3_DEG_table.txt", header = T, sep = "\t")
@@ -24,7 +24,7 @@ ggsave("Fig. 4b M90.pdf", plot = p_T3_vs_T1_01, width = 6, height = 4)
 
 
 # 02Start: logFC density of DEGs in M180-1
-workdir <- "180-day spaceflight_M180-1/RNA-seq/DE_analysis/"
+workdir <- "180-day_spaceflight_M180-1/RNA-seq/DE_analysis/"
 setwd(workdir)
 DEG_T1_T2_02 <- read.table( file = "T1_to_T2_DEG_table.txt", header = T, sep = "\t")
 DEG_T2_T3_02 <- read.table( file = "T2_to_T3_DEG_table.txt", header = T, sep = "\t")
