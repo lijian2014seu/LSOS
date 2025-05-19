@@ -32,6 +32,10 @@ library(GenomicRanges)
 
 DMP_result_path = paste0("./DMP_result", flag)
 Corr_result_path = paste0("./Corr_result", flag)
+if (!dir.exists(Corr_result_path)) {
+    dir.create(Corr_result_path, recursive = TRUE, showWarnings = FALSE)
+    message("Created directory:", Corr_result_path)
+}
 DEG_result_path = "DEG_result"
 
 ##### 01 Load DMP and DEG tables #####
