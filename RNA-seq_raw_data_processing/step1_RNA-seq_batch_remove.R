@@ -1,5 +1,7 @@
 # Description: Batch removal and Dimensionality reduction for data visualization for RNA-seq data (Extended Data Fig. 5)
 
+setwd("/home/lqwang/Program")
+
 # Load packages
 library(Rtsne)
 library(ggplot2)
@@ -7,17 +9,18 @@ library(ggpubr)
 
 # 01Start: Dimensionality reduction for data visualization (M90/01, M180-1/02) before batch removal
 # Load count data of 90-day experiment (M90),count_data_symbol.txt and SampleSheet.csv are available for download at https://www.spacelifescience.cn/search/ (search for 90-day spaceflight_M90, RNA-seq)
-my_dir <- "Data/RNA-seq/"
-setwd(paste0(my_dir, "01/"))
-count_data_01 <- read.table("90-day spaceflight_M90/RNA-seq/count_data_symbol.txt", sep="\t", as.is=T, header=T, row.names = 1)
-SampleSheet_01 <- read.csv("90-day spaceflight_M90/RNA-seq/SampleSheet.csv")
+my_dir <- "RNA-seq_result/"
+if (!dir.exists(my_dir)) {
+    dir.create(my_dir, recursive = TRUE, showWarnings = FALSE)
+    message("Created directory:", my_dir)
+}
+count_data_01 <- read.table("90-day_spaceflight_M90/RNA-seq/count_data_symbol.txt", sep="\t", as.is=T, header=T, row.names = 1)
+SampleSheet_01 <- read.csv("90-day_spaceflight_M90/RNA-seq/SampleSheet.csv")
 sum(colnames(count_data_01)==SampleSheet_01$Sample_Name)
 
 # Load count data of 180-day experiment (M180-1),count_data_symbol.txt and SampleSheet.csv are available for download at https://www.spacelifescience.cn/search/ (search for 180-day spaceflight_M180-1, RNA-seq)
-my_dir <- "Data/RNA-seq/"
-setwd(paste0(my_dir, "02/"))
-count_data_02 <- read.table("180-day spaceflight_M180-1/RNA-seq/count_data_symbol.txt", sep="\t", as.is=T, header=T, row.names = 1)
-SampleSheet_02 <- read.csv("180-day spaceflight_M180-1/RNA-seq/SampleSheet.csv")
+count_data_02 <- read.table("180-day_spaceflight_M180-1/RNA-seq/count_data_symbol.txt", sep="\t", as.is=T, header=T, row.names = 1)
+SampleSheet_02 <- read.csv("180-day_spaceflight_M180-1/RNA-seq/SampleSheet.csv")
 sum(colnames(count_data_02)==SampleSheet_02$Sample_Name)
 
 # Merging of expression profiles
@@ -58,10 +61,8 @@ ggsave(paste0(my_dir,"Extended Data Fig. 5a.pdf"), plot = tsne_plot_all, width =
 write.csv(tsnes, file=paste0(my_dir,"Gene expression tsne data_Source data for Extended Data Fig. 5_a.csv"), row.names=F)
 
 # Load count data of 180-day experiment (M180-2),count_data_symbol.txt and SampleSheet.csv are available for download at https://www.spacelifescience.cn/search/ (search for 180-day spaceflight_M180-2, RNA-seq)
-my_dir <- "Data/RNA-seq/"
-setwd(paste0(my_dir, "03/"))
-count_data_03 <- read.table("180-day spaceflight_M180-2/RNA-seq/count_data_symbol.txt", sep="\t", as.is=T, header=T, row.names = 1)
-SampleSheet_03 <- read.csv("180-day spaceflight_M180-2/RNA-seq/SampleSheet.csv")
+count_data_03 <- read.table("180-day_spaceflight_M180-2/RNA-seq/count_data_symbol.txt", sep="\t", as.is=T, header=T, row.names = 1)
+SampleSheet_03 <- read.csv("180-day_spaceflight_M180-2/RNA-seq/SampleSheet.csv")
 sum(colnames(count_data_03)==SampleSheet_03$Sample_Name)
 
 # Dimensionality reduction for data visualization
@@ -86,15 +87,15 @@ tsne_plot_all <- ggpubr::ggarrange(p1, p2, nrow = 1)
 combat_mat_01 <- sva::ComBat_seq(as.matrix(count_data_01), batch = SampleSheet_01$Sample_Well, group = SampleSheet_01$Sample_Group)
 combat_mat_02 <- sva::ComBat_seq(as.matrix(count_data_02), batch = SampleSheet_02$Sample_Well, group = SampleSheet_02$Sample_Group)
 combat_mat_03 <- sva::ComBat_seq(as.matrix(count_data_03), batch = SampleSheet_03$Sample_Well, group = SampleSheet_03$Sample_Group)
-write.table(combat_mat_03, file=paste0(my_dir,"180-day spaceflight_M180-2/RNA-seq/nobatch_expression_profile.txt"),quote=F)
+write.table(combat_mat_03, file="180-day_spaceflight_M180-2/RNA-seq/nobatch_expression_profile.txt",quote=F)
 
 # Removal of batch effect 
 genes <- intersect(rownames(combat_mat_01), rownames(combat_mat_02))
 combat_mat_all <- cbind(combat_mat_01[genes,], combat_mat_02[genes,])
 colnames(combat_mat_all) <- paste0(c(rep("90_",9), rep("180_",9)), colnames(combat_mat_all))
 combat_mat_all <- sva::ComBat_seq(as.matrix(combat_mat_all), batch = c(rep("90",9), rep("180",9)))
-write.table(combat_mat_all[,1:9], file=paste0(my_dir,"90-day spaceflight_M90/RNA-seq/nobatch_expression_profile.txt"),quote=F)
-write.table(combat_mat_all[,10:18], file=paste0(my_dir,"180-day spaceflight_M180-1/RNA-seq/nobatch_expression_profile.txt"),quote=F)
+write.table(combat_mat_all[,1:9], file="90-day_spaceflight_M90/RNA-seq/nobatch_expression_profile.txt",quote=F)
+write.table(combat_mat_all[,10:18], file="180-day_spaceflight_M180-1/RNA-seq/nobatch_expression_profile.txt",quote=F)
 # 02End: Removal of individual differences and batch effect by combat
 
 
