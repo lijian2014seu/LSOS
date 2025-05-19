@@ -397,7 +397,7 @@ addWorksheet(wb, "DMR_intersection_number")
 writeData(wb, sheet = "DMR_intersection_number", x = combined_res, rowNames = FALSE)
 
 
-DMR_xlsx_path <- file.path(table_summary_path, paste0("DMR_summary", flag, ".xlsx"))
+DMR_xlsx_path <- file.path(DMR_result_path, paste0("DMR_summary", flag, ".xlsx"))
 sheets_pre <- excel_sheets(DMR_xlsx_path)
 wb_pre <- loadWorkbook(DMR_xlsx_path)
 
