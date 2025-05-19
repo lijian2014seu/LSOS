@@ -1,6 +1,8 @@
 # Description: Statistics on the number of DEGs (Fig. 2c and Extended Data Fig. 6b) and presentation of the changing trend (Fig. 4c and Extended Data Fig. 6c)
 # DEG_list_trends.Rds, T1_to_T2_DEG_table.txt, T2_to_T3_DEG_table.txt, T1_to_T3_DEG_table.txt and DEG_list.Rds are available in "DEG_analysis"
 
+setwd("/home/lqwang/Program")
+
 # Load packages
 library(foreign)
 library(ggplot2)
@@ -8,7 +10,7 @@ library(ggalluvial)
 
 # 01Start: Statistics on the number of DEGs 
 # Example: For M90
-workdir <- "90-day spaceflight_M90/RNA-seq/DE_analysis/"
+workdir <- "90-day_spaceflight_M90/RNA-seq/DE_analysis/"
 #Results for different experiments were obtained by changing the workdir and repeating the following code
 setwd(workdir)
 DEG_list_trend <- readRDS("DEG_list_trends.Rds")
