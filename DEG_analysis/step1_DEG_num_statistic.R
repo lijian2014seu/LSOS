@@ -1,14 +1,16 @@
 # Description: T1->T2, T2->T3 DEG number statistic (Fig. 2d) and expression (Fig.4a and Extended Data Fig. 6a ) 
 
+setwd("/home/lqwang/Program")
+
 # Load packages
 library(UpSetR)
 
 # 01Start: DEG number statistic and bar plot
-DEG_list_01 <- readRDS(file = "90-day spaceflight_M90/RNA-seq/DE_analysis/DEG_list.Rds") 
+DEG_list_01 <- readRDS(file = "90-day_spaceflight_M90/RNA-seq/DE_analysis/DEG_list.Rds") 
 DEG_num_01 <- mapply(length, DEG_list_01)[-c(3,6)]
-DEG_list_02 <- readRDS(file = "180-day spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list.Rds") 
+DEG_list_02 <- readRDS(file = "180-day_spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list.Rds") 
 DEG_num_02 <- mapply(length, DEG_list_02 )[-c(3,6)]
-DEG_list_03 <- readRDS(file = "180-day spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list.Rds") 
+DEG_list_03 <- readRDS(file = "180-day_spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list.Rds") 
 DEG_num_03 <- mapply(length, DEG_list_03 )[-c(3,6)]
 
 cor.test(DEG_num_01, DEG_num_02)
@@ -68,9 +70,9 @@ dev.off()
 
 # 02Start: DEG heatmap plot
 # For M90
-DEG_list_trends <- readRDS("90-day spaceflight_M90/RNA-seq/DE_analysis/DEG_list_trends.Rds")
-SampleSheet_01 <- read.csv("90-day spaceflight_M90/RNA-seq/SampleSheet.csv")
-combat_mat_01 <- read.table(paste0(my_dir,"90-day spaceflight_M90/RNA-seqnobatch_expression_profile.txt"), header=T, row.names=1, as.is=T, sep=" ")
+DEG_list_trends <- readRDS("90-day_spaceflight_M90/RNA-seq/DE_analysis/DEG_list_trends.Rds")
+SampleSheet_01 <- read.csv("90-day_spaceflight_M90/RNA-seq/SampleSheet.csv")
+combat_mat_01 <- read.table(paste0(my_dir,"90-day_spaceflight_M90/RNA-seqnobatch_expression_profile.txt"), header=T, row.names=1, as.is=T, sep=" ")
 
 sample_order <- order(SampleSheet_01$Sample_Group, SampleSheet_01$Sample_Well)
 DEG_exp_count <- combat_mat_01[unlist(DEG_list_trends), sample_order]	
@@ -89,13 +91,13 @@ expression_plot_heatmap <- pheatmap::pheatmap(DEG_exp_count, cluster_rows = F, c
 ggsave("Fig.4a M90.pdf", plot = expression_plot_heatmap, width = 6, height = 4)
 DEG_exp_count <- as.data.frame(DEG_exp_count)
 DEG_exp_count$change_type <- annotation_row$type
-write.table(DEG_exp_count, file="90-day spaceflight_M90/RNA-seq/DE_analysis/DEG_expression.txt", quote=F, sep="\t")
+write.table(DEG_exp_count, file="90-day_spaceflight_M90/RNA-seq/DE_analysis/DEG_expression.txt", quote=F, sep="\t")
 
 
 # For M180-1
-DEG_list_trends <- readRDS("180-day spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list_trends.Rds")
-SampleSheet_02 <- read.csv("180-day spaceflight_M180-1/RNA-seq/SampleSheet.csv")
-combat_mat_02 <- read.table("180-day spaceflight_M180-1/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep=" ")
+DEG_list_trends <- readRDS("180-day_spaceflight_M180-1/RNA-seq/DE_analysis/DEG_list_trends.Rds")
+SampleSheet_02 <- read.csv("180-day_spaceflight_M180-1/RNA-seq/SampleSheet.csv")
+combat_mat_02 <- read.table("180-day_spaceflight_M180-1/RNA-seq/nobatch_expression_profile.txt", header=T, row.names=1, as.is=T, sep=" ")
 
 sample_order <- order(SampleSheet_02$Sample_Group, SampleSheet_02$Sample_Well)
 DEG_exp_count <- combat_mat_02[unlist(DEG_list_trends), sample_order]	
@@ -113,13 +115,13 @@ expression_plot_heatmap <- pheatmap::pheatmap(DEG_exp_count, cluster_rows = F, c
 ggsave("Fig.4a M180-1.pdf", plot = expression_plot_heatmap, width = 4, height = 4)
 DEG_exp_count <- as.data.frame(DEG_exp_count)
 DEG_exp_count$change_type <- annotation_row$type
-write.table(DEG_exp_count, file="180-day spaceflight_M180-1/RNA-seq/DE_analysis/DEG_expression.txt", quote=F, sep="\t")
+write.table(DEG_exp_count, file="180-day_spaceflight_M180-1/RNA-seq/DE_analysis/DEG_expression.txt", quote=F, sep="\t")
 
 
 # For M180-2
-DEG_list_trends <- readRDS("180-day spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list_trends.Rds")
-SampleSheet_03 <- read.csv("180-day spaceflight_M180-2/RNA-seq/SampleSheet.csv")
-combat_mat_03 <- read.table(paste0(my_dir,"180-day spaceflight_M180-2/RNA-seq/nobatch_expression_profile.txt"), header=T, row.names=1, as.is=T, sep=" ")
+DEG_list_trends <- readRDS("180-day_spaceflight_M180-2/RNA-seq/DE_analysis/DEG_list_trends.Rds")
+SampleSheet_03 <- read.csv("180-day_spaceflight_M180-2/RNA-seq/SampleSheet.csv")
+combat_mat_03 <- read.table(paste0(my_dir,"180-day_spaceflight_M180-2/RNA-seq/nobatch_expression_profile.txt"), header=T, row.names=1, as.is=T, sep=" ")
 SampleSheet_03 <- SampleSheet_03[SampleSheet_03$Sample_Group != "Torbit", ]
 combat_mat_03 <- combat_mat_03[,SampleSheet_03$Sample_Name]
 
@@ -139,4 +141,4 @@ expression_plot_heatmap <- pheatmap::pheatmap(DEG_exp_count, cluster_rows = F, c
 ggsave("Extended Data Fig. 6.pdf", plot = expression_plot_heatmap, width = 4, height = 4)
 DEG_exp_count <- as.data.frame(DEG_exp_count)
 DEG_exp_count$change_type <- annotation_row$type
-write.table(DEG_exp_count, file="180-day spaceflight_M180-2/RNA-seq/DE_analysis/DEG_expression.txt", quote=F, sep="\t")
+write.table(DEG_exp_count, file="180-day_spaceflight_M180-2/RNA-seq/DE_analysis/DEG_expression.txt", quote=F, sep="\t")
