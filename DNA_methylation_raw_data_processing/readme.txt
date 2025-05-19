@@ -50,3 +50,12 @@ Directory structure in DNA methylation analysis part should strictly follow the 
       *.R  
     --utils  
       *.R  
+
+Aftering preparing the required environment and packages, run the following commands:
+### DNA_methylation_raw_data_processing ###
+nohup Rscript ./main/DNA_methylation_raw_data_processing/step0_samplesheet_sorting.R > ./log/nohup_DNAm_raw_step0_samplesheet_sorting.txt
+nohup Rscript ./main/DNA_methylation_raw_data_processing/step1_DNA_meth_raw_data_process.R > ./log/nohup_DNAm_raw_step1_DNA_meth_raw_data_process.txt
+nohup Rscript ./main/DNA_methylation_raw_data_processing/step2_DNA_meth_batch_remove.R -f _2_1 -p 2.5 -s 123123 > ./log/nohup_DNAm_raw_step2_DNA_meth_batch_remove21.txt
+nohup Rscript ./main/DNA_methylation_raw_data_processing/step2_DNA_meth_batch_remove.R -f _6 -p 2.5 -s 123123 > ./log/nohup_DNAm_raw_step2_DNA_meth_batch_remove6.txt
+nohup Rscript ./main/DNA_methylation_raw_data_processing/step2_DNA_meth_batch_remove.R -f _3_3 -p 2.5 -s 123123 > ./log/nohup_DNAm_raw_step2_DNA_meth_batch_remove33.txt
+
