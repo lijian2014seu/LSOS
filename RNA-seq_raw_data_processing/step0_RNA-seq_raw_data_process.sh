@@ -45,7 +45,6 @@ paste gz1 gz2 > config
 
 cd Data/RNA-seq/aligned_data
 while read fq1 fq2; do
-while read fq1 fq2; do
     fq1="/Data/RNA-seq/clean_data/$fq1"
     fq2="/Data/RNA-seq/clean_data/$fq2"
     sample_name=$(basename "$fq1" _R1_val_1.fq.gz) 
